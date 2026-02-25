@@ -20,6 +20,7 @@ import type {
   MessagesConfig,
 } from "./types.messages.js";
 import type { ModelsConfig } from "./types.models.js";
+import type { NetConfig } from "./types.net.js";
 import type { NodeHostConfig } from "./types.node-host.js";
 import type { PluginsConfig } from "./types.plugins.js";
 import type { SkillsConfig } from "./types.skills.js";
@@ -98,6 +99,7 @@ export type OpenClawConfig = {
   messages?: MessagesConfig;
   commands?: CommandsConfig;
   approvals?: ApprovalsConfig;
+  net?: NetConfig;
   session?: SessionConfig;
   web?: WebConfig;
   channels?: ChannelsConfig;

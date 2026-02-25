@@ -432,6 +432,7 @@ export const FIELD_LABELS: Record<string, string> = {
   "browser.ssrfPolicy": "Browser SSRF Policy",
   "browser.ssrfPolicy.allowPrivateNetwork": "Browser Allow Private Network",
   "browser.ssrfPolicy.dangerouslyAllowPrivateNetwork": "Browser Dangerously Allow Private Network",
+  "browser.ssrfPolicy.allowRfc2544BenchmarkRange": "Browser Allow RFC 2544 Range",
   "browser.ssrfPolicy.allowedHostnames": "Browser Allowed Hostnames",
   "browser.ssrfPolicy.hostnameAllowlist": "Browser Hostname Allowlist",
   "browser.remoteCdpTimeoutMs": "Remote CDP Timeout (ms)",
@@ -746,4 +747,7 @@ export const FIELD_LABELS: Record<string, string> = {
   "plugins.installs.*.shasum": "Plugin Resolved Shasum",
   "plugins.installs.*.resolvedAt": "Plugin Resolution Time",
   "plugins.installs.*.installedAt": "Plugin Install Time",
+  net: "Network",
+  "net.ssrfPolicy": "Network SSRF Policy",
+  "net.ssrfPolicy.allowRfc2544BenchmarkRange": "Allow RFC 2544 Benchmark Range (198.18.0.0/15)",
 };

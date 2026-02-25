@@ -343,10 +343,12 @@ export async function prepareSlackMessage(params: {
     return null;
   }
 
+  const netSsrfPolicy = cfg.net?.ssrfPolicy;
   const media = await resolveSlackMedia({
     files: message.files,
     token: ctx.botToken,
     maxBytes: ctx.mediaMaxBytes,
+    ssrfPolicy: netSsrfPolicy,
   });
 
   // Resolve forwarded message content (text + media) from Slack attachments
@@ -354,6 +356,7 @@ export async function prepareSlackMessage(params: {
     attachments: message.attachments,
     token: ctx.botToken,
     maxBytes: ctx.mediaMaxBytes,
+    ssrfPolicy: netSsrfPolicy,
   });
 
   // Merge forwarded media into the message's media array
@@ -519,6 +522,7 @@ export async function prepareSlackMessage(params: {
           files: starter.files,
           token: ctx.botToken,
           maxBytes: ctx.mediaMaxBytes,
+          ssrfPolicy: netSsrfPolicy,
         });
         if (threadStarterMedia) {
           const starterPlaceholders = threadStarterMedia.map((m) => m.placeholder).join(", ");

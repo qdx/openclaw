@@ -250,6 +250,7 @@ export const OpenClawSchema = z
           .object({
             allowPrivateNetwork: z.boolean().optional(),
             dangerouslyAllowPrivateNetwork: z.boolean().optional(),
+            allowRfc2544BenchmarkRange: z.boolean().optional(),
             allowedHostnames: z.array(z.string()).optional(),
             hostnameAllowlist: z.array(z.string()).optional(),
           })
@@ -326,6 +327,17 @@ export const OpenClawSchema = z
     media: z
       .object({
         preserveFilenames: z.boolean().optional(),
+      })
+      .strict()
+      .optional(),
+    net: z
+      .object({
+        ssrfPolicy: z
+          .object({
+            allowRfc2544BenchmarkRange: z.boolean().optional(),
+          })
+          .strict()
+          .optional(),
       })
       .strict()
       .optional(),

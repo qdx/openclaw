@@ -1,5 +1,6 @@
 import type { WebClient as SlackWebClient } from "@slack/web-api";
 import { normalizeHostname } from "../../infra/net/hostname.js";
+import type { SsrFPolicy } from "../../infra/net/ssrf.js";
 import type { FetchLike } from "../../media/fetch.js";
 import { fetchRemoteMedia } from "../../media/fetch.js";
 import { saveMediaBuffer } from "../../media/store.js";
@@ -190,6 +191,7 @@ export async function resolveSlackMedia(params: {
   files?: SlackFile[];
   token: string;
   maxBytes: number;
+  ssrfPolicy?: SsrFPolicy;
 }): Promise<SlackMediaResult[] | null> {
   const files = params.files ?? [];
   const limitedFiles =
@@ -213,6 +215,7 @@ export async function resolveSlackMedia(params: {
           fetchImpl,
           filePathHint: file.name,
           maxBytes: params.maxBytes,
+          ssrfPolicy: params.ssrfPolicy,
         });
         if (fetched.buffer.byteLength > params.maxBytes) {
           return null;
@@ -246,6 +249,7 @@ export async function resolveSlackAttachmentContent(params: {
   attachments?: SlackAttachment[];
   token: string;
   maxBytes: number;
+  ssrfPolicy?: SsrFPolicy;
 }): Promise<{ text: string; media: SlackMediaResult[] } | null> {
   const attachments = params.attachments;
   if (!attachments || attachments.length === 0) {
@@ -276,6 +280,7 @@ export async function resolveSlackAttachmentContent(params: {
         const fetched = await fetchRemoteMedia({
           url: imageUrl,
           maxBytes: params.maxBytes,
+          ssrfPolicy: params.ssrfPolicy,
         });
         if (fetched.buffer.byteLength <= params.maxBytes) {
           const saved = await saveMediaBuffer(
@@ -301,6 +306,7 @@ export async function resolveSlackAttachmentContent(params: {
         files: att.files,
         token: params.token,
         maxBytes: params.maxBytes,
+        ssrfPolicy: params.ssrfPolicy,
       });
       if (fileMedia) {
         allMedia.push(...fileMedia);
